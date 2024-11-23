@@ -189,7 +189,7 @@ void Init_io(void){
   GPIO_InitType GPIO_InitStructure;
 
   /* Configure the push buttons */
-  GPIO_InitStructure.GPIO_Pin = Get_ButtonGpioPin(BUTTON_1) | Get_ButtonGpioPin(BUTTON_2);
+  GPIO_InitStructure.GPIO_Pin = Pin_Buton_Set | Pin_Buton_Valid;
   GPIO_InitStructure.GPIO_Mode = GPIO_Input;
   GPIO_InitStructure.GPIO_Pull = DISABLE;
   GPIO_InitStructure.GPIO_HighPwr = DISABLE;
@@ -204,21 +204,21 @@ void Init_io(void){
   
   /* Configures EXTI line for BUTTON_1 */
   GPIO_EXTIConfigType GPIO_EXTIStructure;
-  GPIO_EXTIStructure.GPIO_Pin = Get_ButtonGpioPin(BUTTON_1);
+  GPIO_EXTIStructure.GPIO_Pin = Pin_Buton_Set;
   GPIO_EXTIStructure.GPIO_IrqSense = GPIO_IrqSense_Edge;
   GPIO_EXTIStructure.GPIO_Event = IRQ_ON_FALLING_EDGE;
   GPIO_EXTIConfig(&GPIO_EXTIStructure);
 
   /* Configures EXTI line for BUTTON_2 */
-  GPIO_EXTIStructure.GPIO_Pin = Get_ButtonGpioPin(BUTTON_2);
+  GPIO_EXTIStructure.GPIO_Pin = Pin_Buton_Valid;
   GPIO_EXTIStructure.GPIO_Event = IRQ_ON_FALLING_EDGE;
   GPIO_EXTIConfig(&GPIO_EXTIStructure);
   
   /* Clear pending interrupt */
-  GPIO_ClearITPendingBit(Get_ButtonGpioPin(BUTTON_1) | Get_ButtonGpioPin(BUTTON_2));
+  GPIO_ClearITPendingBit(Pin_Buton_Set | Pin_Buton_Valid);
   
   /* Enable the interrupt */
-  GPIO_EXTICmd(Get_ButtonGpioPin(BUTTON_1) | Get_ButtonGpioPin(BUTTON_2), ENABLE);
+  GPIO_EXTICmd(Pin_Buton_Set | Pin_Buton_Valid, ENABLE);
 }
 
 /* last line*/

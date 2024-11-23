@@ -9,10 +9,13 @@
 #define GPIO_SET        Bit_SET
 #define GPIO_RESET    Bit_RESET
 
-#define GPIO_NFC_pin     GPIO_Pin_0
-#define GPIO_NFC_port     0
 
 #define BlueNRG_transmition_OK 0
+
+#define Pin_Buton_Set					GPIO_Pin_11
+#define Pin_Buton_Valid 			GPIO_Pin_5
+
+
 
 int I2C_Transmit(uint8_t i2c_address, uint8_t *i2c_transmit_buf,uint8_t i2c_transmit_buf_size);
 int I2C_Receive(uint8_t i2c_address, uint8_t *i2c_receive_buf,uint8_t i2c_receive_buf_size);

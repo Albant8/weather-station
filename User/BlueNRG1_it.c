@@ -28,6 +28,7 @@
 #include "clock.h"
 #include "vtimer.h"
 #include "Screen.h"
+#include "BlueNRG_Interface_Lib.h"
 
 /** @addtogroup BlueNRG1_StdPeriph_Examples
   * @{
@@ -106,14 +107,14 @@ void Blue_Handler(void)
 void GPIO_Handler(void)
 {
   /* If BUTTON_1 is pressed  */
-  if(GPIO_GetITPendingBit(Get_ButtonGpioPin(BUTTON_1)) == SET) {
-    GPIO_ClearITPendingBit(Get_ButtonGpioPin(BUTTON_1));
+  if(GPIO_GetITPendingBit(Pin_Buton_Set) == SET) {
+    GPIO_ClearITPendingBit(Pin_Buton_Set);
     value_press++;   
   }
 
   /* If BUTTON_2 is pressed  */
-  if(GPIO_GetITPendingBit(Get_ButtonGpioPin(BUTTON_2)) == SET) {
-    GPIO_ClearITPendingBit(Get_ButtonGpioPin(BUTTON_2));
+  if(GPIO_GetITPendingBit(Pin_Buton_Valid) == SET) {
+    GPIO_ClearITPendingBit(Pin_Buton_Valid);
 		validate_press++;
     
   }
