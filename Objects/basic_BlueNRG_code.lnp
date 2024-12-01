@@ -30,6 +30,7 @@
 ".\objects\main.o"
 ".\objects\bluenrg_interface_lib.o"
 ".\objects\screen.o"
+".\objects\sht4.o"
 --diag_suppress 6314,6329 --strict --scatter ".\BlueNRG2.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

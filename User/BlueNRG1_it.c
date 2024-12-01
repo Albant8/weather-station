@@ -119,7 +119,7 @@ void GPIO_Handler(void)
     
   }
 }
-
+uint8_t counter_double_dot=0;
 void RTC_Handler(void)
 {
   if(SET == RTC_IT_Status(RTC_IT_TIMER))
@@ -150,7 +150,17 @@ void RTC_Handler(void)
 		if(RTC_DateTime.Month !=  mouth_set){
 			draw_mouth(RTC_DateTime.Month);
 			mouth_set = RTC_DateTime.Month;
-		}		
+		}
+		
+		if(counter_double_dot > 0){
+			counter_double_dot = 0;
+			draw(dot_x, dot_y1,dot_size,dot_size,(uint8_t *)dot_figure_1);	
+			draw(dot_x, dot_y2,dot_size,dot_size,(uint8_t *)dot_figure_1);
+		}else{
+			counter_double_dot++;
+			Rectf(dot_x, dot_y1,dot_size,dot_size,black);
+			Rectf(dot_x, dot_y2,dot_size,dot_size,black);
+		}
 		
   }
   

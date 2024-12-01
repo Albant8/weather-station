@@ -1,12 +1,15 @@
+/********************  ********************
 
-/******************** (C) COPYRIGHT 2022 BeFC ********************
-* File Name          : Empty_project/User/Main.c 
-* Author             : Zeus 
-* Version            : V1.1.0
-* Date               : July-2022
-* Description        : Template use to begin a project
-********************************************************************************
-* THE PRESENT FIRMWARE IS FOR INTERNAL BeFC USE ONLY
+To do 
+
+changer police mar mer jeu ven sam dim janv	....
+affichr des -- quand le capteur dehors n'a rien envoyer
+coder min max
+ajouter dessin météo
+ajouter capteur I2C
+ajouter si pas de message recu en 10 min afficher --
+
+
 *******************************************************************************/
 
 
@@ -14,6 +17,7 @@
 #include "BlueNRG_BeFC_Lib.h"
 #include "Screen.h"
 #include "BlueNRG_Interface_Lib.h"
+#include "SHT4.h"
 /**
   * @brief  Main program.
   * @param  None
@@ -47,13 +51,22 @@ int main(void)
 	printf("Initialisation\r\n");
 	
 	Init_io();
+	SdkEvalI2CInit(100000);
+	printf("fin init i2c\r\n");	
+	
+	/*uint8_t ret[2];
+	I2C_Read(0x10, 0, 1, ret, 2);*/
+	
 	Screen_init();
 	Screen_set_up();
-	
-	 while(1) 
-		{
-	
-		}
+	float temp,hum;
+	while(1) 
+	{
+		Clock_Wait(10000);
+		SHT4_Take_Data(&temp,&hum);		
+		draw_hum_in(hum);
+		draw_temp_in(temp);
+	}
 }
 
 

@@ -1,5 +1,5 @@
 #include "Screen.h"
-
+#include "SHT4.h"
 void Lcd_Writ_Bus(unsigned char d)
 {
   SPI_SendData(d);
@@ -267,6 +267,8 @@ void LCD_damier()
   GPIO_SetBits(CS);   
 }
 
+void draw_temp_out(float temp_out);
+void draw_hum_out(float hum_out);
 void draw_baterrie_level(uint8_t baterie_level);
 void Screen_init(void){
   SPI_init();
@@ -301,18 +303,15 @@ void Screen_init(void){
 	
 	V_line(160,100,190,white);
 	uint8_t size_of_digit =35;
-
-	draw_digit_35 (2,digit_Tin_1_x ,digit_Tin_y,white);
-	draw_digit_35 (5,digit_Tin_2_x ,digit_Tin_y,white);
-	draw_digit_35 (8,digit_Tin_3_x ,digit_Tin_y,white);
+	float temp,hum;
+	SHT4_Take_Data(&temp,&hum);
+	draw_temp_in(temp);
 	draw(12+2*size_of_digit-1, 150+25+25,dot_size,dot_size,(uint8_t *)dot_figure_1);
 	draw(130, 150,dot_size,dot_size,(uint8_t *)dot_8_empty);
-	/*draw(dot_x, dot_y2,dot_size,dot_size,(uint8_t *)dot_figure_1);*/
+	
 	draw(c_round_x1,c_round_y,c_size_x,c_size_y,(uint8_t *)c_round);
 	
-	draw_digit_35 (5,digit_Hin_1_x ,digit_Hin_y,white);
-	draw_digit_35 (1,digit_Hin_2_x ,digit_Hin_y,white);
-	draw_digit_35 (6,digit_Hin_3_x ,digit_Hin_y,white);	
+	draw_hum_in(hum);
 	draw(12+2*size_of_digit-1, 220+53,dot_size,dot_size,(uint8_t *)dot_figure_1);
 	draw(pourcentage_x1,pourcentage_y,pourcentage_size_x,pourcentage_size_y,(uint8_t *)pourcentage_figure);
 	
@@ -345,17 +344,13 @@ void Screen_init(void){
 	Rectf( 244+10, 106+24,1, 3, black);
 	Rectf( 244+7, 106+25,4, 2, black);
 	
-	draw_digit_35 (1,digit_Tout_1_x ,digit_Tin_y,white);
-	draw_digit_35 (2,digit_Tout_2_x ,digit_Tin_y,white);
-	draw_digit_35 (4,digit_Tout_3_x ,digit_Tin_y,white);
+	draw_temp_out(100);
 	draw(12+2*size_of_digit-1+160, 150+25+25,dot_size,dot_size,(uint8_t *)dot_figure_1);
 	draw(130+160, 150,dot_size,dot_size,(uint8_t *)dot_8_empty);
 	/*draw(dot_x, dot_y2,dot_size,dot_size,(uint8_t *)dot_figure_1);*/
 	draw(c_round_x2,c_round_y,c_size_x,c_size_y,(uint8_t *)c_round);
 	
-	draw_digit_35 (8,digit_Hout_1_x ,digit_Hin_y,white);
-	draw_digit_35 (4,digit_Hout_2_x ,digit_Hin_y,white);
-	draw_digit_35 (7,digit_Hout_3_x ,digit_Hin_y,white);	
+	draw_hum_out(100);	
 	draw(12+2*size_of_digit-1+160, 220+53,dot_size,dot_size,(uint8_t *)dot_figure_1);
 	draw(pourcentage_x2,pourcentage_y,pourcentage_size_x,pourcentage_size_y,(uint8_t *)pourcentage_figure);
 	
@@ -644,10 +639,16 @@ void draw_digit_35 (uint8_t value, unsigned int x,unsigned int y,unsigned int co
 			draw_seg_35_d(x,y,color);
 			draw_seg_35_e(x,y,color);
 			draw_seg_35_f(x,y,color);
+			draw_seg_35_g(x,y,0);
   		break;
   	case 1:
 			draw_seg_35_b(x,y,color);
 			draw_seg_35_c(x,y,color);
+			draw_seg_35_a(x,y,0);
+			draw_seg_35_d(x,y,0);
+			draw_seg_35_e(x,y,0);
+			draw_seg_35_f(x,y,0);
+			draw_seg_35_g(x,y,0);
   		break;  	
 		case 2:
 			draw_seg_35_a(x,y,color);
@@ -655,6 +656,8 @@ void draw_digit_35 (uint8_t value, unsigned int x,unsigned int y,unsigned int co
 			draw_seg_35_g(x,y,color);
 			draw_seg_35_d(x,y,color);
 			draw_seg_35_e(x,y,color);
+			draw_seg_35_c(x,y,0);
+			draw_seg_35_f(x,y,0);
   		break;  	
 		case 3:
 			draw_seg_35_a(x,y,color);
@@ -662,12 +665,17 @@ void draw_digit_35 (uint8_t value, unsigned int x,unsigned int y,unsigned int co
 			draw_seg_35_c(x,y,color);
 			draw_seg_35_g(x,y,color);
 			draw_seg_35_d(x,y,color);
+			draw_seg_35_e(x,y,0);
+			draw_seg_35_f(x,y,0);
   		break;  	
 		case 4:
 			draw_seg_35_f(x,y,color);
 			draw_seg_35_b(x,y,color);
 			draw_seg_35_c(x,y,color);
 			draw_seg_35_g(x,y,color);
+			draw_seg_35_a(x,y,0);
+			draw_seg_35_d(x,y,0);
+			draw_seg_35_e(x,y,0);
   		break;  	
 		case 5:
 			draw_seg_35_f(x,y,color);
@@ -675,6 +683,8 @@ void draw_digit_35 (uint8_t value, unsigned int x,unsigned int y,unsigned int co
 			draw_seg_35_c(x,y,color);
 			draw_seg_35_g(x,y,color);
 			draw_seg_35_d(x,y,color);
+			draw_seg_35_b(x,y,0);
+			draw_seg_35_e(x,y,0);
   		break;  	
 		case 6:
 			draw_seg_35_a(x,y,color);
@@ -683,11 +693,16 @@ void draw_digit_35 (uint8_t value, unsigned int x,unsigned int y,unsigned int co
 			draw_seg_35_g(x,y,color);
 			draw_seg_35_c(x,y,color);
 			draw_seg_35_d(x,y,color);
+			draw_seg_35_b(x,y,0);
   		break;  	
 		case 7:
 			draw_seg_35_a(x,y,color);
 			draw_seg_35_b(x,y,color);
 			draw_seg_35_c(x,y,color);
+			draw_seg_35_d(x,y,0);
+			draw_seg_35_e(x,y,0);
+			draw_seg_35_f(x,y,0);
+			draw_seg_35_g(x,y,0);
   		break;  	
 		case 8:
 			draw_seg_35_a(x,y,color);
@@ -705,6 +720,7 @@ void draw_digit_35 (uint8_t value, unsigned int x,unsigned int y,unsigned int co
 			draw_seg_35_d(x,y,color);
 			draw_seg_35_f(x,y,color);
 			draw_seg_35_g(x,y,color);
+			draw_seg_35_e(x,y,0);
   		break;
   	default:
   		break;
@@ -1123,6 +1139,89 @@ void draw_year(int year){
 		draw_digit_90 ( year%10, digit_H1_x, digit_H_Min_y, white);
 	}
 }	
+
+void draw_temp_in(float temp_in){
+	
+	if(temp_in < -19.9){
+		draw_temp_in(-19.9);
+		return;
+	}
+	if(temp_in <0){
+		Rectf(digit_Tin_1_x,digit_Tin_y,36,64,0);
+		
+		Rectf(digit_Tin_1_x,digit_Tin_y+28,16,7,white); // draw the -
+		if (temp_in < -9.9){
+			draw_digit_35 (1,digit_Tin_1_x ,digit_Tin_y,white);
+		}
+		temp_in *= -1;
+	}
+	else if ( temp_in > 10){
+		draw_digit_35 (((uint8_t)(temp_in/10)%10),digit_Tin_1_x ,digit_Tin_y,white); // print 10th
+	}
+	else {
+	 Rectf(digit_Tin_1_x,digit_Tin_y,36,64,0);
+	}
+	draw_digit_35 (((uint8_t)(temp_in)%10),digit_Tin_2_x ,digit_Tin_y,white);
+	draw_digit_35 ((uint8_t)((int)(temp_in*10)%10),digit_Tin_3_x ,digit_Tin_y,white);
+}
+
+void draw_hum_in(float hum_in){
+	draw_digit_35 (((uint8_t)(hum_in/10)%10),digit_Hin_1_x ,digit_Hin_y,white);
+	draw_digit_35 (((uint8_t)(hum_in)%10),digit_Hin_2_x ,digit_Hin_y,white);
+	draw_digit_35 ((uint8_t)((int)(hum_in*10)%10),digit_Hin_3_x ,digit_Hin_y,white);	
+}
+
+
+void draw_temp_out(float temp_out){
+	if(temp_out >99.9){ // outsoor sensor not find
+		Rectf(digit_Tout_1_x,digit_Tout_y,36,64,0);
+		Rectf(digit_Tout_2_x,digit_Tout_y,36,64,0);
+		Rectf(digit_Tout_3_x,digit_Tout_y,36,64,0);
+		Rectf(digit_Tout_1_x+10,digit_Tout_y+28,16,7,white);
+		Rectf(digit_Tout_2_x+10,digit_Tout_y+28,16,7,white);
+		Rectf(digit_Tout_3_x+10,digit_Tout_y+28,16,7,white);
+	}
+	
+	else{
+		if(temp_out < -19.9){
+			draw_temp_out(-19.9);
+			return;
+		}
+		if(temp_out <0){
+			Rectf(digit_Tout_1_x,digit_Tout_y,36,64,0);
+			
+			Rectf(digit_Tout_1_x,digit_Tout_y+28,16,7,white); // draw the -
+			if (temp_out < -9.9){
+				draw_digit_35 (1,digit_Tout_1_x ,digit_Tout_y,white);
+			}
+			temp_out *= -1;
+		}
+		else if ( temp_out > 10){
+			draw_digit_35 (((uint8_t)(temp_out/10)%10),digit_Tout_1_x ,digit_Tout_y,white); // print 10th
+		}
+		else {
+		 Rectf(digit_Tout_1_x,digit_Tout_y,36,64,0);
+		}
+		draw_digit_35 (((uint8_t)(temp_out)%10),digit_Tout_2_x ,digit_Tout_y,white);
+		draw_digit_35 ((uint8_t)((int)(temp_out*10)%10),digit_Tout_3_x ,digit_Tout_y,white);
+	}
+}
+void draw_hum_out(float hum_out){
+		if(hum_out >99.9){ // outsoor sensor not find
+			Rectf(digit_Hout_1_x,digit_Hout_y,36,64,0);
+			Rectf(digit_Hout_2_x,digit_Hout_y,36,64,0);
+			Rectf(digit_Hout_3_x,digit_Hout_y,36,64,0);
+			Rectf(digit_Hout_1_x+10,digit_Hout_y+28,16,7,white);
+			Rectf(digit_Hout_2_x+10,digit_Hout_y+28,16,7,white);
+			Rectf(digit_Hout_3_x+10,digit_Hout_y+28,16,7,white);
+		}else{
+			draw_digit_35 (((uint8_t)(hum_out/10)%10),digit_Hout_1_x ,digit_Hout_y,white);
+			draw_digit_35 (((uint8_t)(hum_out)%10),digit_Hout_2_x ,digit_Hout_y,white);
+			draw_digit_35 ((uint8_t)((int)(hum_out*10)%10),digit_Hout_3_x ,digit_Hout_y,white);	
+	}
+}
+
+
 extern uint8_t validate_press;
 extern int value_press;
 extern uint8_t minute_set;
@@ -1130,7 +1229,8 @@ extern uint8_t hour_set;
 extern uint8_t day_set;
 extern uint8_t day_week_set;
 extern uint8_t mouth_set;
-#define RTC_PERIOD_30s          32767*30
+#define RTC_PERIOD_1s          32767
+
 void Screen_set_up(void){
 	
 	SysCtrl_PeripheralClockCmd(CLOCK_PERIPH_RTC, ENABLE);
@@ -1245,7 +1345,7 @@ void Screen_set_up(void){
   
 		RTC_Init_struct.RTC_operatingMode = RTC_TIMER_PERIODIC;    /**< Periodic RTC mode */
 		RTC_Init_struct.RTC_PATTERN_SIZE = 1 - 1;                  /**< Pattern size set to 1 */
-		RTC_Init_struct.RTC_TLR1 = RTC_PERIOD_30s;               /**< Enable 0.5s timer period */
+		RTC_Init_struct.RTC_TLR1 = RTC_PERIOD_1s;               /**< Enable 0.5s timer period */
 		RTC_Init_struct.RTC_PATTERN1 = 0x00;                       /**< RTC_TLR1 selected for time generation */
 		RTC_Init(&RTC_Init_struct);
   

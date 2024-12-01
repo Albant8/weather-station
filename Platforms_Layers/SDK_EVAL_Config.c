@@ -87,12 +87,12 @@ const uint32_t s_UartRxModeVersion[SDK_PLATFORMS_NUMBER] = {Serial1_Mode};
 /**
  * @brief BlueNRG1 Eval Board (STEVAL-IDB007V1) I2C definitions
  */
-const I2C_Type* s_I2cPeripheralVersion[SDK_PLATFORMS_NUMBER] = {I2C2};
-const uint32_t s_I2cDataPinVersion[SDK_PLATFORMS_NUMBER] = {GPIO_Pin_5};
+const I2C_Type* s_I2cPeripheralVersion[SDK_PLATFORMS_NUMBER] = {I2C1};
+const uint32_t s_I2cDataPinVersion[SDK_PLATFORMS_NUMBER] = {GPIO_Pin_13};
 const uint32_t s_I2cDataModeVersion[SDK_PLATFORMS_NUMBER] = {Serial0_Mode};
-const uint32_t s_I2cClkPinVersion[SDK_PLATFORMS_NUMBER] = {GPIO_Pin_4};
+const uint32_t s_I2cClkPinVersion[SDK_PLATFORMS_NUMBER] = {GPIO_Pin_12};
 const uint32_t s_I2cClkPinModeVersion[SDK_PLATFORMS_NUMBER] = {Serial0_Mode};
-const uint8_t s_I2cIrqVersion[SDK_PLATFORMS_NUMBER] = {I2C2_IRQn};
+const uint8_t s_I2cIrqVersion[SDK_PLATFORMS_NUMBER] = {I2C1_IRQn};
 
 const DMA_CH_Type* s_I2cDataDmaTxVersion[SDK_PLATFORMS_NUMBER] = {DMA_CH7};
 const uint32_t s_I2cDataDmaRxTcVersion[SDK_PLATFORMS_NUMBER] = {DMA_FLAG_TC6};
@@ -100,7 +100,7 @@ const uint32_t s_I2cDataDmaRxTcVersion[SDK_PLATFORMS_NUMBER] = {DMA_FLAG_TC6};
 const DMA_CH_Type* s_I2cDataDmaRxVersion[SDK_PLATFORMS_NUMBER] = {DMA_CH6};
 const uint32_t s_I2cDataDmaTxTcVersion[SDK_PLATFORMS_NUMBER] = {DMA_FLAG_TC7};
 
-const uint32_t s_I2CBaseVersion[SDK_PLATFORMS_NUMBER] = {I2C2_BASE};
+const uint32_t s_I2CBaseVersion[SDK_PLATFORMS_NUMBER] = {I2C1_BASE};
 
 /**
  * @brief BlueNRG1 Eval Board (STEVAL-IDB007V1) LEDs definitions

@@ -340,7 +340,7 @@
               <MiscControls>--wchar32</MiscControls>
               <Define>SMPS_INDUCTOR=SMPS_INDUCTOR_10uH LS_SOURCE=LS_SOURCE_EXTERNAL_32KHZ BLUENRG2_DEVICE HS_SPEED_XTAL=HS_SPEED_XTAL_16MHZ USER_BUTTON=BUTTON_1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\inc\BlueNRG1;.\inc\BlueNRG1_Periph_Driver;.\inc\CMSIS;.\inc\hal;.\inc\main;.\inc\SDK;.\BeFC_Library\Inc;.\Screen_Library</IncludePath>
+              <IncludePath>.\inc\BlueNRG1;.\inc\BlueNRG1_Periph_Driver;.\inc\CMSIS;.\inc\hal;.\inc\main;.\inc\SDK;.\BeFC_Library\Inc;.\Screen_Library;.\Sensor</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -558,6 +558,16 @@
               <FileName>Screen.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Screen_Library\Screen.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Sensor</GroupName>
+          <Files>
+            <File>
+              <FileName>SHT4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sensor\SHT4.c</FilePath>
             </File>
           </Files>
         </Group>

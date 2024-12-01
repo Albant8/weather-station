@@ -58,12 +58,12 @@
 #define digit_Tout_1_x 5+160
 #define digit_Tout_2_x 45+160
 #define digit_Tout_3_x 90+160
-#define digit_Tout_y 145+160
+#define digit_Tout_y 145
 
 #define digit_Hout_1_x 5+160
 #define digit_Hout_2_x 45+160
 #define digit_Hout_3_x 90+160
-#define digit_Hout_y 220+160
+#define digit_Hout_y 220
 
 
 
@@ -82,3 +82,7 @@ void draw_minute(uint8_t minute);
 void draw_year(int year);
 void Screen_set_up(void);
 void draw_reseau (uint8_t signal);
+void draw_temp_in(float temp_in);
+void draw_hum_in(float hum_in);
+void Rectf(unsigned int x,unsigned int y,unsigned int w,unsigned int h,unsigned int c);
+
