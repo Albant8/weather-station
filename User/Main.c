@@ -6,7 +6,7 @@ To do
 ajouter le ble
 ajouter si pas de message recu en 10 min afficher --
 print force du signal et temp hum ext
-changer police mar mer jeu ven sam dim janv	....
+modifier le p pour le baisser
 coder min max
 ajouter dessin météo
 ajouter capteur I2C

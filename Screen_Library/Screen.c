@@ -430,6 +430,19 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 	switch (letter)
   {
   	case 'a':
+			V_line(x+2, y+15, 2, color);
+			Rectf( x+3, y+13, 8,  2, color);
+			Rectf( x+9, y+16, 3,  10, color);
+			Rectf( x+3, y+19, 6,  3, color);
+			Rectf( x+1, y+25, 8,  2, color);
+			Rectf( x+3, y+22, 1,  1, color);
+			V_line(x, y+22, 4, color);
+			V_line(x+1, y+21, 4, color);
+			V_line(x+2, y+20, 5, color);
+			H_line(x+12, y+25, 2, color);
+			H_line(x+10, y+26, 5, color);
+  		break;		
+  	case 'A':
 			Rectf( x, y, 15,  3, color);
 			Rectf( x, y+3, 3,  24, color);
 			Rectf( x+12, y+3, 3,  24, color);
@@ -447,10 +460,24 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			Rectf( x+12, y+3, 3,  21, color);
   		break;
 		case'e':
-			Rectf( x, y, 15,  3, color);
-			Rectf( x, y+12, 12,  3, color);	
-			Rectf( x, y+24, 15,  3, color);		
-			Rectf( x, y+3, 3,  21, color);
+			H_line( x+5, y+12, 5, color);
+			H_line( x+3, y+13, 9, color);
+			H_line( x+2, y+14, 4, color);
+			H_line( x+9, y+14, 4, color);		
+			H_line( x+1, y+15, 3, color);	
+			H_line( x+11, y+15, 3, color);
+			H_line( x, y+16, 3, color);	
+			H_line( x+12, y+16, 3, color);			
+			Rectf( x, y+17, 2,  6, color);
+			Rectf( x+13, y+17, 2,  4, color);
+			Rectf( x+2, y+19, 11,  2, color);
+			V_line( x+2, y+21, 2, color);
+			H_line( x+1, y+23, 3, color);	
+			H_line( x+13, y+23, 2, color);	
+			H_line( x+2, y+24, 3, color);	
+			H_line( x+12, y+24, 3, color);	
+			H_line( x+3, y+25, 11, color);	
+			H_line( x+4, y+26, 9, color);	
   		break;
 		case'f':
 			Rectf( x, y, 15,  3, color);
@@ -458,9 +485,11 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			Rectf( x, y+3, 3,  24, color);
   		break;
 		case'i':
-			Rectf( x+3, y, 9,  3, color);
-			Rectf( x+3, y+24, 9,  3, color);	
-			Rectf( x+6, y+3, 3,  21, color);
+			Rectf( x+6, y+6, 2, 2, color);
+			V_line( x+1, y+12, 8, color);
+			V_line( x+2, y+13, 7, color);
+			Rectf( x+7, y+14, 2,  11, color);	
+			Rectf( x, y+25, 15,  2, color);
   		break;
 		case'j':
 			Rectf( x+6, y, 9,  3, color);
@@ -468,18 +497,31 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			Rectf( x+3, y+21, 3,  3, color);
 			Rectf( x+6, y+24, 3,  3, color);
   		break;	
-		case'l':
+		case'L':
 			Rectf( x, y, 3,  27, color);
 			Rectf( x+3, y+24, 12,  3, color);
-
   		break;
-		case 'm':
+		case'l':
+			Rectf( x+6, y+11, 2,  16, color);
+  		break;
+		case 'M':
 			Rectf( x, y, 3,  27, color);
 			Rectf( x+12, y, 3,  27, color);
 			for(int i = 0; i<5;i++){
 				V_line(x+3+i, y+1+i, 6, color);
 				V_line(x+11-i, y+1+i, 6, color);
 			}
+			break;
+		case 'm':
+			Rectf( x, y+16, 7,  2, color);
+			Rectf( x+8, y+16, 5,  2, color);
+			V_line(x+1, y+18, 3, color);
+			V_line(x+0, y+26, 4, color);
+			V_line(x+7, y+26, 3, color);
+			V_line(x+12, y+26, 3, color);
+			Rectf( x+1, y+19, 2,  7, color);
+			Rectf( x+7, y+17, 2,  9, color);
+			Rectf( x+12, y+17, 2, 9, color);
 			break;
 			case 'N':
 			Rectf( x, y, 3,  27, color);
@@ -509,33 +551,36 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			Rectf( x, y+15, 3,  9, color);
 			Rectf( x+12, y+15, 3, 9, color);			
   		break;
-			case'p':
-			Rectf( x, y, 11,  3, color);
-			Rectf( x, y+3,3, 24, color);
-			Rectf( x+10, y+2,3, 7, color);
-			Rectf( x+3, y+9,7, 2, color);			
-			H_line(x+11, y+1, 1, color);
-			H_line(x+10, y+9, 2, color);
-			H_line(x+10, y+10, 1, color);
-			H_line(x+3, y+11, 6, color);
+			case'p':			
+			H_line(x, y+9, 4, color);
+			Rectf( x+2, y+10, 2,  15, color);
+			Rectf( x, y+25, 11,  7, color);			
+			V_line(x+4, y+10, 3, color);
+			Rectf( x+5, y+9, 2,  2, color);		
+			Rectf( x+7, y+8, 3,  2, color);		
+			Rectf( x+10, y+9, 2,  2, color);	
+			V_line(x+12, y+10, 2, color);
+			V_line(x+4, y+17, 2, color);
+			V_line(x+5, y+18, 2, color);
+			Rectf(x+6, y+19, 2, 2, color);
+			V_line(x+8, y+20, 1, color);
+			Rectf(x+9, y+19, 2, 2, color);
+			H_line(x+11, y+19, 2, color);
+			H_line(x+12, y+18, 4, color);
+			V_line(x+13, y+11, 7, color);
+			V_line(x+14, y+12, 5, color);
 			break;
 			case'r':
-			Rectf( x, y, 11,  3, color);
-			Rectf( x, y+3,3, 24, color);
-			Rectf( x+10, y+2,3, 7, color);
-			Rectf( x+3, y+9,7, 2, color);			
-			H_line(x+11, y+1, 1, color);
-			H_line(x+10, y+9, 2, color);
-			H_line(x+10, y+10, 1, color);
-			H_line(x+3, y+11, 6, color);
-			Rectf( x+7, y+12,3, 3, color);	
-			Rectf( x+8, y+15,3, 3, color);	
-			Rectf( x+9, y+18,3, 3, color);	
-			Rectf( x+10, y+21,3, 3, color);	
-			Rectf( x+11, y+24,3, 3, color);	
-			H_line(x+11, y+26, 1, black);
+			Rectf( x+1, y+12, 5, 2, color);
+			Rectf( x+4, y+14, 2, 11, color);
+			Rectf( x, y+25, 2, 11, color);
+			V_line(x+6, y+15, 2, color);
+			Rectf( x+7, y+14, 3,  2, color);		
+			Rectf( x+8, y+13, 2,  2, color);			
+			Rectf( x+10, y+12, 4,  2, color);		
+			Rectf( x+13, y+13, 2,  2, color);			
   		break;
-			case's':
+			case'S':
 			Rectf( x+2, y, 13,  3, color);
 			Rectf( x+2, y+12,11, 3, color);
 			Rectf( x, y+24,13, 3, color);
@@ -550,9 +595,34 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			H_line(x+11, y+23, 1, color);
 			H_line(x+13, y+25, 1, color);
 			break;
+			case's':
+			V_line(x, y+14, 2, color);
+			V_line(x, y+21, 4, color);
+			V_line(x+1, y+22, 2, color);
+			V_line(x+2, y+22, 3, color);
+			V_line(x+3, y+23, 3, color);
+			V_line(x+4, y+24, 3, color);
+			Rectf( x+5, y+25, 5,  2, color);
+			V_line(x+10, y+25, 1, color);
+			H_line(x+11, y+25, 2, color);
+			H_line(x+11, y+24, 3, color);
+			H_line(x+12, y+23, 3, color);
+			Rectf( x+13, y+18, 2, 5, color);
+			Rectf( x+2, y+17, 12, 2, color);
+			Rectf( x+1, y+13, 5, 2, color);
+			Rectf( x+2, y+12, 2, 2, color);
+			Rectf( x+4, y+11, 7, 2, color);
+			Rectf( x+11, y+12, 3, 2, color);
+			Rectf( x+12, y+14, 2, 2, color);
+			H_line(x+13, y+11, 1, color);
+			break;
 			case't':
-			Rectf( x, y, 15,  3, color);
-			Rectf( x+6, y+3,3, 24, color);
+			Rectf( x+3, y+8, 2,  17, color);
+			H_line(x, y+13, 13, color);
+			H_line(x+4, y+25, 4, color);
+			H_line(x+5, y+26, 7, color);
+			H_line(x+10, y+25, 4, color);
+			H_line(x+12, y+24, 2, color);
 			break;
 			case'u':
 			Rectf( x, y+12, 3,  15, color);
@@ -565,6 +635,20 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 				V_line(x+14-i, y+10+2*i, 4, color);
 			}
 			V_line(x+7, y+24, 3, color);
+			break;
+			case'V':
+			Rectf( x, y+4, 2,  5, color);
+			Rectf( x+1, y+7, 3,  5, color);
+			Rectf( x+2, y+11, 3,  6, color);
+			Rectf( x+3, y+16, 3,  4, color);
+			Rectf( x+4, y+19, 3,  4, color);
+			Rectf( x+5, y+22, 4,  4, color);
+			H_line(x+6, y+26, 3, color);
+			Rectf( x+14, y+4, 2,  5, color);
+			Rectf( x+11, y+7, 3,  5, color);
+			Rectf( x+10, y+11, 3,  6, color);
+			Rectf( x+9, y+16, 3,  4, color);
+			Rectf( x+8, y+19, 3,  4, color);
 			break;
   	default:
   		break;
@@ -984,17 +1068,17 @@ void draw_week_day(uint8_t week_day){
 			draw_letter( 'm',  letter_WD3_x, letter_WD_y, white);
 			break;
 		case 2:
-			draw_letter( 'l',  letter_WD1_x, letter_WD_y, white);
+			draw_letter( 'L',  letter_WD1_x, letter_WD_y, white);
 			draw_letter( 'u',  letter_WD2_x, letter_WD_y, white);
 			draw_letter( 'n',  letter_WD3_x, letter_WD_y, white);
 			break;
 		case 3:
-			draw_letter( 'm',  letter_WD1_x, letter_WD_y, white);
+			draw_letter( 'M',  letter_WD1_x, letter_WD_y, white);
 			draw_letter( 'a',  letter_WD2_x, letter_WD_y, white);
 			draw_letter( 'r',  letter_WD3_x, letter_WD_y, white);
 			break;
 		case 4:
-			draw_letter( 'm',  letter_WD1_x, letter_WD_y, white);
+			draw_letter( 'M',  letter_WD1_x, letter_WD_y, white);
 			draw_letter( 'e',  letter_WD2_x, letter_WD_y, white);
 			draw_letter( 'r',  letter_WD3_x, letter_WD_y, white);
 			break;
@@ -1004,7 +1088,7 @@ void draw_week_day(uint8_t week_day){
 			draw_letter( 'u',  letter_WD3_x, letter_WD_y, white);
 			break;
 		case 6:
-			draw_letter( 'v',  letter_WD1_x, letter_WD_y, white);
+			draw_letter( 'V',  letter_WD1_x, letter_WD_y, white);
 			draw_letter( 'e',  letter_WD2_x, letter_WD_y, white);
 			draw_letter( 'n',  letter_WD3_x, letter_WD_y, white);
 			break;
@@ -1046,7 +1130,7 @@ void draw_mouth(uint8_t mouth){
 			draw_letter( 'r',  digit_M4_x, digit_M_y, white);
   		break;
 		 case 3:
-			draw_letter( 'm',  digit_M1_x, digit_M_y, white);
+			draw_letter( 'M',  digit_M1_x, digit_M_y, white);
 			draw_letter( 'a',  digit_M2_x, digit_M_y, white);
 			draw_letter( 'r',  digit_M3_x, digit_M_y, white);
 			draw_letter( 's',  digit_M4_x, digit_M_y, white);
@@ -1075,13 +1159,13 @@ void draw_mouth(uint8_t mouth){
 			draw_letter( 'l',  digit_M4_x, digit_M_y, white);
   		break;
 		case 8:
-			draw_letter( 'a',  digit_M1_x, digit_M_y, white);
+			draw_letter( 'A',  digit_M1_x, digit_M_y, white);
 			draw_letter( 'o',  digit_M2_x, digit_M_y, white);
 			draw_letter( 'u',  digit_M3_x, digit_M_y, white);
 			draw_letter( 't',  digit_M4_x, digit_M_y, white);
   		break;
 		case 9:
-			draw_letter( 's',  digit_M1_x, digit_M_y, white);
+			draw_letter( 'S',  digit_M1_x, digit_M_y, white);
 			draw_letter( 'e',  digit_M2_x, digit_M_y, white);
 			draw_letter( 'p',  digit_M3_x, digit_M_y, white);
 			draw_letter( 't',  digit_M4_x, digit_M_y, white);
