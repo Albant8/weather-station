@@ -409,6 +409,16 @@
               <FileType>1</FileType>
               <FilePath>.\Hal\vtimer.c</FilePath>
             </File>
+            <File>
+              <FileName>fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hal\fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_radio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hal\hal_radio.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -483,6 +493,11 @@
               <FileName>misc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Library\misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>BlueNRG1_radio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Library\BlueNRG1_radio.c</FilePath>
             </File>
           </Files>
         </Group>
