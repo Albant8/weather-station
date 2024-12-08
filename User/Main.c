@@ -2,8 +2,6 @@
 
 To do 
 
-
-ajouter le ble
 ajouter si pas de message recu en 10 min afficher --
 print force du signal et temp hum ext
 modifier le p pour le baisser
@@ -110,7 +108,13 @@ int main(void)
 	
 
   SdkEvalComUartInit(UART_BAUDRATE);
+		printf("Initialisation\r\n");
 	/* USE the UART debug*/
+  fifo_init(&blueRec_fifo, MAX_PACKET_LENGTH*2, blueRec_buffer, 1);
+  RADIO_Init(NULL, ENABLE);
+  HAL_VTIMER_Init(&VTIMER_InitStruct);
+  HAL_RADIO_SetNetworkID(BLE_ADV_ACCESS_ADDRESS); /* 0x8E89BED6 */
+  HAL_RADIO_ReceivePacket(channel, delay, receivedData, timeOut, RxCallback);
 
 	printf("Initialisation\r\n");
 	
@@ -123,13 +127,33 @@ int main(void)
 	
 	Screen_init();
 	//Screen_set_up();
-	float temp,hum;
+	//float temp,hum;
 	while(1) 
 	{
-		Clock_Wait(10000);
+		
+		  while(fifo_size(&blueRec_fifo) !=0) {
+      HAL_VTIMER_Tick();
+      /* Get the length of the packet and the packet itself */
+      fifo_get_var_len_item(&blueRec_fifo, &length, packet);
+
+      /* Get the RSSI information */
+      fifo_get(&blueRec_fifo, 4, (uint8_t*)&rssi_val);
+      
+      /* Get the timestamp */
+      fifo_get(&blueRec_fifo, 4, (uint8_t*)&timestamp);
+      timestamp = (uint32_t) (timestamp/410); //convert in ms
+      
+     
+       if(packet[14] == 0x4d & packet[15] == 0x65 & packet[16] == 0x74 & packet[17] == 0x65 & length >15){ //Message from Befc
+					draw_temp_out((float)((float)(packet[18]*100+packet[19]*10+packet[20])/10));
+					draw_hum_out((float)((float)(packet[21]*100+packet[22]*10+packet[23])/10));
+				 printf("RSSI = %d\r\n",rssi_val);
+			}
+		}
+		/*Clock_Wait(10000);
 		SHT4_Take_Data(&temp,&hum);		
 		draw_hum_in(hum);
-		draw_temp_in(temp);
+		draw_temp_in(temp);*/
 	}
 }
 

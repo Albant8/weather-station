@@ -267,8 +267,7 @@ void LCD_damier()
   GPIO_SetBits(CS);   
 }
 
-void draw_temp_out(float temp_out);
-void draw_hum_out(float hum_out);
+
 void draw_baterrie_level(uint8_t baterie_level);
 void Screen_init(void){
   SPI_init();
@@ -355,7 +354,7 @@ void Screen_init(void){
 	draw(pourcentage_x2,pourcentage_y,pourcentage_size_x,pourcentage_size_y,(uint8_t *)pourcentage_figure);
 	
 	//reseau 
-	draw_reseau(128);
+	/*draw_reseau(128);
 	Clock_Wait(2000);
 	draw_reseau(85);
 	Clock_Wait(2000);
@@ -367,7 +366,7 @@ void Screen_init(void){
 	Clock_Wait(2000);
 	draw_baterrie_level(60);	
 	Clock_Wait(2000);
-	draw_baterrie_level(100);	
+	draw_baterrie_level(100);	*/
 }
 
 void draw(unsigned int x,unsigned int y,unsigned int w,unsigned int h,uint8_t figure[]){
@@ -431,7 +430,7 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
   {
   	case 'a':
 			V_line(x+2, y+15, 2, color);
-			Rectf( x+3, y+13, 8,  2, color);
+			Rectf( x+3, y+14, 8,  2, color);
 			Rectf( x+9, y+16, 3,  10, color);
 			Rectf( x+3, y+19, 6,  3, color);
 			Rectf( x+1, y+25, 8,  2, color);
@@ -486,8 +485,8 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
   		break;
 		case'i':
 			Rectf( x+6, y+6, 2, 2, color);
-			V_line( x+1, y+12, 8, color);
-			V_line( x+2, y+13, 7, color);
+			H_line( x+1, y+12, 8, color);
+			H_line( x+2, y+13, 7, color);
 			Rectf( x+7, y+14, 2,  11, color);	
 			Rectf( x, y+25, 15,  2, color);
   		break;
@@ -516,9 +515,9 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			Rectf( x, y+16, 7,  2, color);
 			Rectf( x+8, y+16, 5,  2, color);
 			V_line(x+1, y+18, 3, color);
-			V_line(x+0, y+26, 4, color);
-			V_line(x+7, y+26, 3, color);
-			V_line(x+12, y+26, 3, color);
+			H_line(x+0, y+26, 4, color);
+			H_line(x+7, y+26, 3, color);
+			H_line(x+12, y+26, 3, color);
 			Rectf( x+1, y+19, 2,  7, color);
 			Rectf( x+7, y+17, 2,  9, color);
 			Rectf( x+12, y+17, 2, 9, color);
@@ -529,6 +528,7 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			for(int i = 0; i<3;i++){
 				Rectf( x+3+i, y+3+3*i, 2, 3, color);
 				Rectf( x+10-i, y+21-3*i, 2, 3, color);
+
 			}
 			V_line(x+6, y+12, 2, color);
 			V_line(x+7, y+12, 3, color);
@@ -573,7 +573,7 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			case'r':
 			Rectf( x+1, y+12, 5, 2, color);
 			Rectf( x+4, y+14, 2, 11, color);
-			Rectf( x, y+25, 2, 11, color);
+			Rectf( x, y+25, 11, 2, color);
 			V_line(x+6, y+15, 2, color);
 			Rectf( x+7, y+14, 3,  2, color);		
 			Rectf( x+8, y+13, 2,  2, color);			
@@ -609,7 +609,7 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			H_line(x+12, y+23, 3, color);
 			Rectf( x+13, y+18, 2, 5, color);
 			Rectf( x+2, y+17, 12, 2, color);
-			Rectf( x+1, y+13, 5, 2, color);
+			Rectf( x+1, y+13, 2, 5, color);
 			Rectf( x+2, y+12, 2, 2, color);
 			Rectf( x+4, y+11, 7, 2, color);
 			Rectf( x+11, y+12, 3, 2, color);
@@ -644,7 +644,7 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			Rectf( x+4, y+19, 3,  4, color);
 			Rectf( x+5, y+22, 4,  4, color);
 			H_line(x+6, y+26, 3, color);
-			Rectf( x+14, y+4, 2,  5, color);
+			Rectf( x+13, y+4, 2,  5, color);
 			Rectf( x+11, y+7, 3,  5, color);
 			Rectf( x+10, y+11, 3,  6, color);
 			Rectf( x+9, y+16, 3,  4, color);
@@ -1093,7 +1093,7 @@ void draw_week_day(uint8_t week_day){
 			draw_letter( 'n',  letter_WD3_x, letter_WD_y, white);
 			break;
 		case 7:
-			draw_letter( 's',  letter_WD1_x, letter_WD_y, white);
+			draw_letter( 'S',  letter_WD1_x, letter_WD_y, white);
 			draw_letter( 'a',  letter_WD2_x, letter_WD_y, white);
 			draw_letter( 'm',  letter_WD3_x, letter_WD_y, white);
 			break;
@@ -1136,13 +1136,13 @@ void draw_mouth(uint8_t mouth){
 			draw_letter( 's',  digit_M4_x, digit_M_y, white);
   		break;
 	 	case 4:
-			draw_letter( 'a',  digit_M1_x, digit_M_y, white);
+			draw_letter( 'A',  digit_M1_x, digit_M_y, white);
 			draw_letter( 'v',  digit_M2_x, digit_M_y, white);
 			draw_letter( 'r',  digit_M3_x, digit_M_y, white);
 			draw_letter( 'i',  digit_M4_x, digit_M_y, white);
   		break;
 		case 5:
-			draw_letter( 'm',  digit_M1_x, digit_M_y, white);
+			draw_letter( 'M',  digit_M1_x, digit_M_y, white);
 			draw_letter( 'a',  digit_M2_x, digit_M_y, white);
 			draw_letter( 'i',  digit_M3_x, digit_M_y, white);
   		break;

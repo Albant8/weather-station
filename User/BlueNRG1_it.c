@@ -29,7 +29,7 @@
 #include "vtimer.h"
 #include "Screen.h"
 #include "BlueNRG_Interface_Lib.h"
-
+#include "BlueNRG1_radio.h"
 /** @addtogroup BlueNRG1_StdPeriph_Examples
   * @{
   */
@@ -95,13 +95,9 @@ void SysTick_Handler(void)
 
 void Blue_Handler(void)
 {
-  uint32_t intreason = BLUE_CTRL->INTERRUPT;
-  
-  if (intreason & (1 << 15)) {
-    HAL_VTIMER_TimeoutCallback();
-  }
-  BLUE_CTRL->INTERRUPT = intreason;
+  RADIO_IRQHandler();
 }
+
 
 
 void GPIO_Handler(void)

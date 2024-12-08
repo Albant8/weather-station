@@ -84,5 +84,7 @@ void Screen_set_up(void);
 void draw_reseau (uint8_t signal);
 void draw_temp_in(float temp_in);
 void draw_hum_in(float hum_in);
+void draw_temp_out(float temp_out);
+void draw_hum_out(float hum_out);
 void Rectf(unsigned int x,unsigned int y,unsigned int w,unsigned int h,unsigned int c);
 
