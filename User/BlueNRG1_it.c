@@ -30,6 +30,7 @@
 #include "Screen.h"
 #include "BlueNRG_Interface_Lib.h"
 #include "BlueNRG1_radio.h"
+#include "SHT4.h"
 /** @addtogroup BlueNRG1_StdPeriph_Examples
   * @{
   */
@@ -116,6 +117,9 @@ void GPIO_Handler(void)
   }
 }
 uint8_t counter_double_dot=0;
+extern uint8_t last_time_ble;
+extern uint8_t flag_take_TH;
+extern uint8_t flag_display_dash_ext;
 void RTC_Handler(void)
 {
   if(SET == RTC_IT_Status(RTC_IT_TIMER))
@@ -128,8 +132,20 @@ void RTC_Handler(void)
     RTC_GetTimeDate(&RTC_DateTime);
 		
 		if(RTC_DateTime.Minute !=  minute_set){
+			printf("IRQ mminute\r\n");
 			draw_minute(RTC_DateTime.Minute);
 			minute_set = RTC_DateTime.Minute;
+			uint8_t value_compare = minute_set;
+			printf("value_compare = %d last_time_ble = %d\r\n", value_compare, last_time_ble);
+			flag_take_TH = 1;
+			if(last_time_ble > 49){
+					value_compare+=60;
+			}
+			if(value_compare - last_time_ble >10){
+					draw_hum_out(100);
+					draw_temp_out(100);
+					last_time_ble =255;
+			}
 		}
 		if(RTC_DateTime.Hour !=  hour_set){
 			draw_hour(RTC_DateTime.Hour);

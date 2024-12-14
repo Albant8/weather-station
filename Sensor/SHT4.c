@@ -80,9 +80,9 @@ int SHT4_I2C_Read(uint8_t* pBuffer,  uint8_t NumByteToRead)
   */
 void SHT4_Take_Measurement(uint8_t *pBuffer){
 
-	uint8_t tx_bytes[1]={0xE0};
+	uint8_t tx_bytes[1]={0xFD};
 	SHT4_I2C_Write(tx_bytes);
-	Clock_Wait(10);
+	Clock_Wait(20);
 	SHT4_I2C_Read(pBuffer, 6);
 
 }

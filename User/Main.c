@@ -2,12 +2,9 @@
 
 To do 
 
-ajouter si pas de message recu en 10 min afficher --
-print force du signal et temp hum ext
+reset les artéfacts
 modifier le p pour le baisser
 coder min max
-ajouter dessin météo
-ajouter capteur I2C
 
 
 
@@ -33,6 +30,8 @@ uint8_t hour_set;
 uint8_t day_set;
 uint8_t day_week_set;
 uint8_t mouth_set;
+uint8_t flag_take_TH; 
+uint8_t flag_display_dash_ext;
 
 #define BLE_ADV_ACCESS_ADDRESS  (uint32_t)(0x8E89BED6)
 
@@ -89,9 +88,11 @@ uint8_t RxCallback(ActionPacket* p, ActionPacket* next)
   }
   return TRUE;
 }
-
+uint8_t last_time_ble;
 int main(void)
 {
+	flag_take_TH=0;
+	flag_display_dash_ext=0;
   uint8_t packet[MAX_PACKET_LENGTH];
 	HAL_VTIMER_InitType VTIMER_InitStruct = {HS_STARTUP_TIME, INITIAL_CALIBRATION, CALIBRATION_INTERVAL};
 
@@ -108,7 +109,6 @@ int main(void)
 	
 
   SdkEvalComUartInit(UART_BAUDRATE);
-		printf("Initialisation\r\n");
 	/* USE the UART debug*/
   fifo_init(&blueRec_fifo, MAX_PACKET_LENGTH*2, blueRec_buffer, 1);
   RADIO_Init(NULL, ENABLE);
@@ -122,12 +122,13 @@ int main(void)
 	SdkEvalI2CInit(100000);
 	printf("fin init i2c\r\n");	
 	
-	/*uint8_t ret[2];
-	I2C_Read(0x10, 0, 1, ret, 2);*/
-	
+  RTC_DateTimeType RTC_DateTime;  
+	float temp_adc,temp,hum;;
 	Screen_init();
-	//Screen_set_up();
-	//float temp,hum;
+	draw_weather(1);
+	Screen_set_up();
+
+	
 	while(1) 
 	{
 		
@@ -147,13 +148,23 @@ int main(void)
        if(packet[14] == 0x4d & packet[15] == 0x65 & packet[16] == 0x74 & packet[17] == 0x65 & length >15){ //Message from Befc
 					draw_temp_out((float)((float)(packet[18]*100+packet[19]*10+packet[20])/10));
 					draw_hum_out((float)((float)(packet[21]*100+packet[22]*10+packet[23])/10));
-				 printf("RSSI = %d\r\n",rssi_val);
+				  draw_reseau(rssi_val);
+					temp_adc = ((packet[24]/10.0+packet[25]/100.0+packet[26]/1000.0)*225)-100;
+					printf("ADC : %f, temp_adc = %f\r\n",packet[24]/10.0+packet[25]/100.0+packet[26]/1000.0,temp_adc);
+					draw_baterrie_level((uint8_t)temp_adc);
+					RTC_GetTimeDate(&RTC_DateTime);
+					last_time_ble = RTC_DateTime.Minute;
+					printf("ble recu and last_time_ble update to %d\r\n",last_time_ble);
+					
 			}
 		}
-		/*Clock_Wait(10000);
-		SHT4_Take_Data(&temp,&hum);		
-		draw_hum_in(hum);
-		draw_temp_in(temp);*/
+		if(flag_take_TH == 1){
+			SHT4_Take_Data(&temp,&hum);		
+			draw_hum_in(hum);
+			draw_temp_in(temp);		
+			flag_take_TH = 0;		
+		}
+
 	}
 }
 

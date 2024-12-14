@@ -14,7 +14,7 @@
 #define Reset GPIO_Pin_6
 #define RS GPIO_Pin_14
 
-#define white   0xFFFF
+#define white   0xD67A
 #define red		  0xF800
 #define green   0x07E0
 #define blue    0x001F
@@ -22,6 +22,7 @@
 #define cyan    0x07FF
 #define magenta 0xf81f
 #define black   0
+#define grey    0x8410
 
 #define letter_WD1_x 18
 #define letter_WD2_x 38
@@ -87,4 +88,5 @@ void draw_hum_in(float hum_in);
 void draw_temp_out(float temp_out);
 void draw_hum_out(float hum_out);
 void Rectf(unsigned int x,unsigned int y,unsigned int w,unsigned int h,unsigned int c);
-
+void draw_baterrie_level(uint8_t baterie_level);
+void draw_weather(uint8_t weather);

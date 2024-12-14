@@ -185,6 +185,10 @@ void Lcd_Init(void)
 }
 
 
+
+
+
+
 void H_line(unsigned int x, unsigned int y, unsigned int l, unsigned int c)                   
 {	
   unsigned int i;
@@ -352,21 +356,8 @@ void Screen_init(void){
 	draw_hum_out(100);	
 	draw(12+2*size_of_digit-1+160, 220+53,dot_size,dot_size,(uint8_t *)dot_figure_1);
 	draw(pourcentage_x2,pourcentage_y,pourcentage_size_x,pourcentage_size_y,(uint8_t *)pourcentage_figure);
-	
-	//reseau 
-	/*draw_reseau(128);
-	Clock_Wait(2000);
-	draw_reseau(85);
-	Clock_Wait(2000);
-	draw_reseau(70);
-	Clock_Wait(2000);
-	draw_reseau(40);
-	Clock_Wait(2000);
-	draw_baterrie_level(2);	
-	Clock_Wait(2000);
-	draw_baterrie_level(60);	
-	Clock_Wait(2000);
-	draw_baterrie_level(100);	*/
+
+
 }
 
 void draw(unsigned int x,unsigned int y,unsigned int w,unsigned int h,uint8_t figure[]){
@@ -552,9 +543,9 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			Rectf( x+12, y+15, 3, 9, color);			
   		break;
 			case'p':			
+			y +=2;
 			H_line(x, y+9, 4, color);
-			Rectf( x+2, y+10, 2,  15, color);
-			Rectf( x, y+25, 11,  7, color);			
+			Rectf( x+2, y+10, 2,  15, color);	
 			V_line(x+4, y+10, 3, color);
 			Rectf( x+5, y+9, 2,  2, color);		
 			Rectf( x+7, y+8, 3,  2, color);		
@@ -566,7 +557,7 @@ void draw_letter(char letter, unsigned int x,unsigned int y,unsigned int color){
 			V_line(x+8, y+20, 1, color);
 			Rectf(x+9, y+19, 2, 2, color);
 			H_line(x+11, y+19, 2, color);
-			H_line(x+12, y+18, 4, color);
+			H_line(x+12, y+18, 2, color);
 			V_line(x+13, y+11, 7, color);
 			V_line(x+14, y+12, 5, color);
 			break;
@@ -1458,9 +1449,10 @@ void draw_reseau (uint8_t signal){
 	//reseau min
 	Rectf(reseau_x+17, reseau_y+22 ,2,2,color);
 	
-	if(signal >100){
+	if(signal < 175){
 		color = black;
 	}
+	
 	//reseau first arc circle
 	H_line(reseau_x+13, reseau_y+19 ,1,color);
 	Rectf(reseau_x+14, reseau_y+18 ,8,2,color);
@@ -1468,7 +1460,7 @@ void draw_reseau (uint8_t signal){
 	H_line(reseau_x+14, reseau_y+20 ,3,color);
 	H_line(reseau_x+19, reseau_y+20 ,3,color);
 	H_line(reseau_x+16, reseau_y+17 ,4,color);
-	if(signal >75){
+	if(signal < 182){
 		color = black;
 	}
 	//reseau second arc circle
@@ -1479,7 +1471,7 @@ void draw_reseau (uint8_t signal){
 	V_line(reseau_x+10, reseau_y+15,2,color);
 	Rectf(reseau_x+11, reseau_y+14 ,2,3,color);
 	Rectf(reseau_x+13, reseau_y+13 ,2,3,color);
-	if(signal >60){
+	if(signal < 201){
 		color = black;
 	}
 	//reseau third 
@@ -1520,5 +1512,150 @@ if(baterie_level <20){
 	Rectf(275+15,105+3,11,24,yellow);
 	Rectf(275+27,105+3,11,24,black);
 }
+}
+
+
+void H_line_sym(unsigned int x, unsigned int y, unsigned int l, unsigned int c)                   
+{	
+   H_line(x-l, y, l, c);
+}
+
+void draw_weather(uint8_t weather){
+	int x = 116;
+	int y = 292;
+	if(weather == 1){ 
+		// cercle
+		Rectf(x,y+28,5,48,yellow);
+		Rectf(x+5,y+29,3,46,yellow);
+		Rectf(x+8,y+30,3,44,yellow);
+		Rectf(x+11,y+31,1,42,yellow);
+		Rectf(x+12,y+32,2,40,yellow);
+		Rectf(x+14,y+33,1,38,yellow);
+		Rectf(x+15,y+34,1,36,yellow);
+		Rectf(x+16,y+35,1,34,yellow);
+		Rectf(x+17,y+36,1,32,yellow);
+		Rectf(x+18,y+37,1,30,yellow);
+		Rectf(x+19,y+38,1,28,yellow);
+		Rectf(x+20,y+40,1,24,yellow);
+		Rectf(x+21,y+41,1,22,yellow);
+		Rectf(x+22,y+44,1,16,yellow);
+		Rectf(x+23,y+47,1,10,yellow);		
+		Rectf(x-5,y+28,5,48,yellow);
+		Rectf(x-8,y+29,3,46,yellow);
+		Rectf(x-11,y+30,3,44,yellow);
+		Rectf(x-12,y+31,1,42,yellow);
+		Rectf(x-14,y+32,2,40,yellow);
+		Rectf(x-15,y+33,1,38,yellow);
+		Rectf(x-16,y+34,1,36,yellow);
+		Rectf(x-17,y+35,1,34,yellow);
+		Rectf(x-18,y+36,1,32,yellow);
+		Rectf(x-19,y+37,1,30,yellow);
+		Rectf(x-20,y+38,1,28,yellow);
+		Rectf(x-21,y+40,1,24,yellow);
+		Rectf(x-22,y+41,1,22,yellow);
+		Rectf(x-23,y+44,1,16,yellow);
+		Rectf(x-24,y+47,1,10,yellow);
+		//rayon haut
+		
+		Rectf(x-2,y+9,4,14,yellow);
+		V_line(x+2,y+10,12,yellow);
+		V_line(x+3,y+11,10,yellow);
+		V_line(x-3,y+10,12,yellow);
+		V_line(x-4,y+11,10,yellow);
+		//rayon bas
+		Rectf(x-2,y+81,4,14,yellow);
+		V_line(x+2,y+82,12,yellow);
+		V_line(x+3,y+83,10,yellow);	
+		V_line(x-3,y+82,12,yellow);
+		V_line(x-4,y+83,10,yellow);	
+		//rayon horizontal
+		
+		H_line(x+31,y+48,10,yellow);
+		H_line(x+30,y+49,12,yellow);
+		Rectf(x+29,y+50,14,4,yellow);
+		H_line(x+30,y+54,12,yellow);
+		H_line(x+31,y+55,10,yellow);		
+		
+		H_line(x-31-10,y+48,10,yellow);
+		H_line(x-30-12,y+49,12,yellow);
+		Rectf(x-29-14,y+50,14,4,yellow);
+		H_line(x-30-12,y+54,12,yellow);
+		H_line(x-31-10,y+55,10,yellow);	
+		
+		//rayon haut droit
+		H_line(x+22,y+32,3,yellow);
+		H_line(x+21,y+31,5,yellow);
+		H_line(x+20,y+30,7,yellow);
+		H_line(x+20,y+29,8,yellow);
+		H_line(x+20,y+28,9,yellow);
+		H_line(x+21,y+27,9,yellow);
+		H_line(x+22,y+26,9,yellow);
+		H_line(x+23,y+25,9,yellow);
+		H_line(x+24,y+24,8,yellow);
+		H_line(x+25,y+23,7,yellow);
+		H_line(x+26,y+22,5,yellow);
+		H_line(x+27,y+21,3,yellow);
+		
+		H_line_sym(x-22,y+32,3,yellow);
+		H_line_sym(x-21,y+31,5,yellow);
+		H_line_sym(x-20,y+30,7,yellow);
+		H_line_sym(x-20,y+29,8,yellow);
+		H_line_sym(x-20,y+28,9,yellow);
+		H_line_sym(x-21,y+27,9,yellow);
+		H_line_sym(x-22,y+26,9,yellow);
+		H_line_sym(x-23,y+25,9,yellow);
+		H_line_sym(x-24,y+24,8,yellow);
+		H_line_sym(x-25,y+23,7,yellow);
+		H_line_sym(x-26,y+22,5,yellow);
+		H_line_sym(x-27,y+21,3,yellow);
+		//rayon bas droit
+		H_line(x+23,y+72,3,yellow);
+		H_line(x+22,y+73,5,yellow);
+		H_line(x+21,y+74,7,yellow);	
+		H_line(x+21,y+75,8,yellow);
+		H_line(x+21,y+76,9,yellow);
+		H_line(x+22,y+77,9,yellow);
+		H_line(x+23,y+78,9,yellow);
+		H_line(x+24,y+79,9,yellow);
+		H_line(x+25,y+80,8,yellow);
+		H_line(x+26,y+81,7,yellow);
+		H_line(x+27,y+82,5,yellow);
+		H_line(x+28,y+83,3,yellow);
+		
+		H_line_sym(x-23,y+72,3,yellow);
+		H_line_sym(x-22,y+73,5,yellow);
+		H_line_sym(x-21,y+74,7,yellow);	
+		H_line_sym(x-21,y+75,8,yellow);
+		H_line_sym(x-21,y+76,9,yellow);
+		H_line_sym(x-22,y+77,9,yellow);
+		H_line_sym(x-23,y+78,9,yellow);
+		H_line_sym(x-24,y+79,9,yellow);
+		H_line_sym(x-25,y+80,8,yellow);
+		H_line_sym(x-26,y+81,7,yellow);
+		H_line_sym(x-27,y+82,5,yellow);
+		H_line_sym(x-28,y+83,3,yellow);
+		
+		
+		//cloud
+	//	H_line(192,y+64,6,blue);	
+		uint8_t cloud[72][2] = {{110, 201},{109, 204},{107, 207},{106, 209},{105, 211},{104, 212},{103, 214},{102, 215},{102, 216},{101, 217},{101, 217},{100, 218},{100, 219},{100, 219},{99, 220},{99, 220},{99, 221},{99, 221},{99, 221},{99, 222},{99, 222},{99, 222},{100, 222},{101, 222},{101, 222},{101, 222},{102, 222},{103, 222},{103, 222},{104, 222},{105, 222},{106, 222},{107, 221},{109, 221},{111, 221},{114, 220},{117, 220},{118, 219},{118, 219},{118, 218},{118, 217},{119, 217},{119, 216},{119, 215},{119, 214},{120, 212},{120, 211},{120, 209},{121, 207},{121, 204},{121, 188},{122, 187},{122, 187},{123, 186},{124, 185},{124, 185},{125, 184},{126, 183},{126, 183},{127, 182},{128, 181},{129, 180},{130, 179},{131, 178},{133, 176},{134, 175},{136, 173},{137, 172},{139, 170},{142, 167},{145, 164},{149, 160}};
+		for (int i = 0 ; i<72; i++){
+			H_line(cloud[i][0],y+114-i,1+cloud[i][1]-cloud[i][0],grey);
+		}
+		
+		uint8_t light_rain[23][2] = {{114,118},{113,119},{113,120},{113,120},{113,121},{113,121},{114,122},{114,122},{115,123},{115,123},{116,124},{116,125},{117,125},{118,126},{118,126},{119,127},{119,127},{120,128},{120,128},{121,128},{122,128},{122,128},{123,127}};
+			
+		for (int i = 0 ; i<23; i++){
+			H_line(light_rain[i][0],y+143-i,1+light_rain[i][1]-light_rain[i][0],blue);
+			H_line(light_rain[i][0]+45,y+143-i,1+light_rain[i][1]-light_rain[i][0],blue);
+		}
+		
+		uint8_t heavy_rain[23][2] = {{153,157},{151,158},{149,158},{147,158},{145,158},{143,158},{141,157},{139,156},{137,154},{135,152},{133,150},{131,148},{129,146},{128,144},{126,142},{124,140},{122,138},{121,136},{121,134},{121,132},{121,130},{121,128},{122,126}};
+		for (int i = 0 ; i<23; i++){
+			V_line(128+i,y + heavy_rain[i][0],1+heavy_rain[i][1]-heavy_rain[i][0],blue);
+			V_line(128+i+45,y+ heavy_rain[i][0],1+heavy_rain[i][1]-heavy_rain[i][0],blue);
+		}
+	}
+	
 }
 
