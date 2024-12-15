@@ -150,6 +150,7 @@ void RTC_Handler(void)
 		if(RTC_DateTime.Hour !=  hour_set){
 			draw_hour(RTC_DateTime.Hour);
 			hour_set = RTC_DateTime.Hour;
+			draw_weather();
 		}
 		if(RTC_DateTime.WeekDay !=  day_week_set){
 			draw_week_day(RTC_DateTime.WeekDay);
@@ -170,8 +171,8 @@ void RTC_Handler(void)
 			draw(dot_x, dot_y2,dot_size,dot_size,(uint8_t *)dot_figure_1);
 		}else{
 			counter_double_dot++;
-			Rectf(dot_x, dot_y1,dot_size,dot_size,black);
-			Rectf(dot_x, dot_y2,dot_size,dot_size,black);
+			Rectf(144+50, 0,14,99,black);
+			
 		}
 		
   }

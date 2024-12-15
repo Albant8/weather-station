@@ -3,7 +3,7 @@
 #include "dot.h"
 #include "c_round.h"
 #include "%.h"
-
+#include "LPS22hh.h"
 
 #define LED   GPIO_Pin_4    
 
@@ -89,4 +89,4 @@ void draw_temp_out(float temp_out);
 void draw_hum_out(float hum_out);
 void Rectf(unsigned int x,unsigned int y,unsigned int w,unsigned int h,unsigned int c);
 void draw_baterrie_level(uint8_t baterie_level);
-void draw_weather(uint8_t weather);
+void draw_weather(void);
